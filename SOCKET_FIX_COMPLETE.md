@@ -172,7 +172,7 @@ Press `F12` or Right-Click → Inspect → Console tab
 - **Network error** → Backend not running
   - **Fix:** Check terminal 1, restart with `npm start`
 - **CORS error** → Wrong backend port
-  - **Fix:** Verify backend on 3001, frontend .env has `VITE_SOCKET_URL=http://localhost:3001`
+  - **Fix:** Verify backend on 3001, frontend .env has `VITE_SOCKET_URL=http://54.206.28.179:3001`
 
 ### ⚠️ Message appears twice
 - **Cause:** Both REST response adding + Socket listener adding

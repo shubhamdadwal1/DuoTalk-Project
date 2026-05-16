@@ -210,7 +210,7 @@ Successfully implemented a full-featured blog system for DuoTalk that allows use
 
 ### Create Blog
 ```javascript
-const response = await fetch('http://localhost:3001/api/blogs', {
+const response = await fetch('http://54.206.28.179:3001/api/blogs', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -224,7 +224,7 @@ const response = await fetch('http://localhost:3001/api/blogs', {
 
 ### Like Blog
 ```javascript
-const response = await fetch(`http://localhost:3001/api/blogs/${blogId}/like`, {
+const response = await fetch(`http://54.206.28.179:3001/api/blogs/${blogId}/like`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -235,7 +235,7 @@ const response = await fetch(`http://localhost:3001/api/blogs/${blogId}/like`, {
 
 ### Get All Blogs
 ```javascript
-const response = await fetch('http://localhost:3001/api/blogs')
+const response = await fetch('http://54.206.28.179:3001/api/blogs')
 const blogs = await response.json()
 ```
 

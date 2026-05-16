@@ -289,7 +289,7 @@ In `frontend/src/context/AuthContext.jsx`, after successful auth:
 
 ```javascript
 // After Firebase auth success
-const response = await fetch('http://localhost:3001/api/auth/firebase-user', {
+const response = await fetch('http://54.206.28.179:3001/api/auth/firebase-user', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({

@@ -14,11 +14,11 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: 'http://localhost:3001',
+        target: 'http://54.206.28.179:3001',
         changeOrigin: true,
       },
       '/socket.io': {
-        target: 'http://localhost:3001',
+        target: 'http://54.206.28.179:3001',
         changeOrigin: true,
         ws: true,
       },

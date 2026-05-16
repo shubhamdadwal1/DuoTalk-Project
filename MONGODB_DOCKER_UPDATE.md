@@ -167,7 +167,7 @@ docker compose logs backend | grep -i "connected\|error\|mongodb"
 
 ### 2. Test API Health
 ```bash
-curl http://localhost:3001/api/health
+curl http://54.206.28.179:3001/api/health
 ```
 
 ### 3. Check Database
@@ -220,7 +220,7 @@ CLOUDINARY_API_SECRET=your-secret
 ```bash
 # API
 VITE_API_BASE_URL=/api
-VITE_SOCKET_URL=http://localhost:3001
+VITE_SOCKET_URL=http://54.206.28.179:3001
 
 # Firebase
 VITE_FIREBASE_API_KEY=your-key
