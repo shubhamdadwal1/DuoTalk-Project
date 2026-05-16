@@ -2,6 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getSocket, emitEvent, onEvent, offEvent } from '../../services/socketIO';
 import './VideoCall.css';
 
+function isTrustedMediaOrigin() {
+  if (typeof window === 'undefined') return true;
+  if (window.isSecureContext) return true;
+
+  const hostname = window.location.hostname;
+  return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '[::1]';
+}
+
+function buildMediaSecurityError() {
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'this site';
+  return `Video calling needs HTTPS or localhost. ${origin} is not a trusted browser origin for camera and microphone access.`;
+}
+
 /**
  * VideoCall Component
  * Real-time video calling using WebRTC
@@ -20,6 +33,7 @@ const VideoCall = ({ recipientId, recipientName, onCallEnd }) => {
   const [isScreenSharing, setIsScreenSharing] = useState(false);
   const [callDuration, setCallDuration] = useState(0);
   const [stats, setStats] = useState(null);
+  const [callError, setCallError] = useState('');
 
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
@@ -99,6 +113,10 @@ const VideoCall = ({ recipientId, recipientName, onCallEnd }) => {
   // Get local media stream
   const getLocalStream = async () => {
     try {
+      if (!isTrustedMediaOrigin()) {
+        throw new Error(buildMediaSecurityError());
+      }
+
       if (localStreamRef.current) {
         return localStreamRef.current;
       }

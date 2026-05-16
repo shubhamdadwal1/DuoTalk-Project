@@ -30,6 +30,19 @@ const WEBRTC_CONFIG = {
   ],
 };
 
+function isTrustedMediaOrigin() {
+  if (typeof window === 'undefined') return true;
+  if (window.isSecureContext) return true;
+
+  const hostname = window.location.hostname;
+  return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '[::1]';
+}
+
+function buildMediaSecurityError() {
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'this site';
+  return `Video calling needs HTTPS or localhost. ${origin} is not a trusted browser origin for camera and microphone access.`;
+}
+
 function buildInitials(name = '') {
   const trimmed = String(name || '').trim();
   if (!trimmed) return 'U';
@@ -389,6 +402,10 @@ export default function ProfileMessagesView({ firebaseUser, profile, availableUs
   };
 
   const ensureLocalStream = async () => {
+    if (!isTrustedMediaOrigin()) {
+      throw new Error(buildMediaSecurityError());
+    }
+
     if (localStreamRef.current) {
       syncLocalTrackState();
       attachVideoElements();
@@ -928,6 +945,10 @@ export default function ProfileMessagesView({ firebaseUser, profile, availableUs
     if (!selectedContactId) return;
 
     try {
+      if (!isTrustedMediaOrigin()) {
+        throw new Error(buildMediaSecurityError());
+      }
+
       if (!navigator.mediaDevices?.getUserMedia) {
         throw new Error('Camera and microphone are not available in this browser.');
       }
