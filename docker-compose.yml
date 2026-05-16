@@ -102,7 +102,7 @@ services:
       - local
       - admin
     environment:
-      ME_CONFIG_MONGODB_URL:  mongodb+srv://dadwalshubham096:dadwalshubham096@cluster1.nd6wymu.mongodb.net/duotalk?retryWrites=true&w=majority&appName=Cluster1
+      ME_CONFIG_MONGODB_URL:  mongodb+srv://shubham12:shubham12@cluster1.nd6wymu.mongodb.net/duotalk?retryWrites=true&w=majority&appName=Cluster1
       ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: admin123
     ports:

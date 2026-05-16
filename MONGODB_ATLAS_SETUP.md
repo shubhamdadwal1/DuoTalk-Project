@@ -15,7 +15,7 @@ Your MongoDB Atlas account has the **duotalk** database with these collections:
 - `posts`
 - `users`
 
-**Username**: `dadwalshubham096`
+**Username**: `shubham12`
 
 ### 1.2 Get Connection String
 1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
@@ -27,7 +27,7 @@ Your MongoDB Atlas account has the **duotalk** database with these collections:
 
 **Example format:**
 ```
-mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk?retryWrites=true&w=majority
+mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk?retryWrites=true&w=majority
 ```
 
 ---
@@ -46,12 +46,12 @@ cp backend/.env.example backend/.env
 ### 2.2 Set MongoDB Atlas Connection
 Find this line in your `.env`:
 ```
-MONGODB_URI=mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk
+MONGODB_URI=mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk
 ```
 
 **Replace `<db_password>` with your actual password:**
 ```
-MONGODB_URI=mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk
+MONGODB_URI=mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk
 ```
 
 ### 2.3 Ensure JWT_SECRET is Set
@@ -179,7 +179,7 @@ MONGO_EXPRESS_PASSWORD=change-from-admin123
 **Error:** `authentication failed` or `Authorization failed`
 
 **Solution:**
-1. Verify username is correct: `dadwalshubham096`
+1. Verify username is correct: `shubham12`
 2. Check password doesn't have typos
 3. Verify password is URL encoded if it has special characters
 4. Reset password in MongoDB Atlas if unsure

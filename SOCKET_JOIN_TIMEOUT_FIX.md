@@ -74,8 +74,8 @@ Message should appear in real-time!
 🔌 Initializing Socket.IO connection to: http://3.25.153.25:3001
 ⏳ Socket.IO connection in progress...
 ✅ Socket.IO connected: 2ub06-j0XCYcuZwIAAAd
-📤 Emitting join for user: dadwalshubham096@gmail.com
-✅ User dadwalshubham096@gmail.com join event emitted successfully
+📤 Emitting join for user: shubham12@gmail.com
+✅ User shubham12@gmail.com join event emitted successfully
 ProfileMessagesView initializing socket...
 👂 Listening to 'receive_message'
 👂 Listening to 'typing'

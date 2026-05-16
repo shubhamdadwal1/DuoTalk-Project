@@ -49,12 +49,12 @@ cp .env.docker .env
 #### 2. Update with Your Password
 Edit `.env` and replace:
 ```
-MONGODB_URI=mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk
+MONGODB_URI=mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk
 ```
 
 With your actual password:
 ```
-MONGODB_URI=mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk
+MONGODB_URI=mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk
 ```
 
 #### 3. Start Docker (No Local MongoDB)
@@ -77,7 +77,7 @@ docker compose --profile local up -d --build
 ## 🔑 Your MongoDB Atlas Credentials
 
 **Database**: duotalk  
-**Username**: dadwalshubham096  
+**Username**: shubham12  
 **Password**: Contact your database administrator  
 **Cluster**: cluster.nd6wymu.mongodb.net  
 
@@ -97,7 +97,7 @@ docker compose --profile local up -d --build
 cp .env.docker .env
 
 # 2. Edit .env and add your password
-# MONGODB_URI=mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk
+# MONGODB_URI=mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk
 
 # 3. Start services
 docker compose up -d --build

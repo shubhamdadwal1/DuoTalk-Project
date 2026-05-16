@@ -1797,14 +1797,14 @@ function startServer() {
 
     httpServer.once('error', onError)
     httpServer.once('listening', onListening)
-    httpServer.listen(PORT)
+    httpServer.listen(PORT, '0.0.0.0')
   })
 }
 
 async function boot() {
   try {
     server = await startServer()
-    console.log(`Server running on http://localhost:${PORT}`)
+    console.log(`Server running on http://0.0.0.0:${PORT}`)
     await connectDB()
     
     // Mount API routes
