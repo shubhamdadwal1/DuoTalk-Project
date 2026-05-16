@@ -10,14 +10,15 @@ export default defineConfig({
       'X-Frame-Options': 'SAMEORIGIN',
       'X-XSS-Protection': '1; mode=block',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
     },
     proxy: {
       '/api': {
-        target: 'http://3.25.222.207:3001',
+        target: 'http://localhost:3001',
         changeOrigin: true,
       },
       '/socket.io': {
-        target: 'http://3.25.222.207:3001',
+        target: 'http://localhost:3001',
         changeOrigin: true,
         ws: true,
       },

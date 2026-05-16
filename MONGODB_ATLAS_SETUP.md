@@ -119,10 +119,10 @@ docker compose logs -f backend
 ### Test API Health
 ```bash
 # Should return 200 OK
-curl http://3.25.222.207:3001/api/health
+curl http://localhost:3001/api/health
 
 # Check database connection
-curl http://3.25.222.207:3001/api/debug/db-status
+curl http://localhost:3001/api/debug/db-status
 ```
 
 ### Test Frontend

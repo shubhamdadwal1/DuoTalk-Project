@@ -21,7 +21,7 @@ function resolveSocketUrl() {
 
   // In local Vite development, the backend runs on 3001 rather than the frontend origin.
   if (import.meta.env.DEV) {
-    return 'http://3.25.222.207:3001';
+    return 'http://localhost:3001';
   }
 
   // In production, frontend and backend share the same domain via reverse proxy.
@@ -232,8 +232,13 @@ export function emitEvent(eventName, data, callback) {
 }
 
 export function onEvent(eventName, callback) {
+  // Initialize socket if not already done
   if (!socket) {
-    console.error(`❌ Cannot listen to '${eventName}': Socket not initialized.`);
+    initSocketConnection();
+  }
+
+  if (!socket) {
+    console.error(`❌ Cannot listen to '${eventName}': Socket initialization failed.`);
     return;
   }
   

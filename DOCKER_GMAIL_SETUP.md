@@ -50,9 +50,9 @@ docker-compose up --build
 
 ### Access Services
 - **Frontend:** http://localhost:5173
-- **Backend API:** http://3.25.222.207:3001
+- **Backend API:** http://localhost:3001
 - **MongoDB Admin:** http://localhost:8081 (optional, use `docker-compose --profile admin up`)
-- **Socket.IO:** Connects via frontend to http://3.25.222.207:3001
+- **Socket.IO:** Connects via frontend to http://localhost:3001
 
 ---
 
@@ -116,7 +116,7 @@ docker-compose logs backend
 ### 4. Test API Connection
 ```bash
 # In your browser console, run:
-fetch('http://3.25.222.207:3001/api/health')
+fetch('http://localhost:3001/api/health')
   .then(r => r.json())
   .then(console.log)
 ```
@@ -148,7 +148,7 @@ VITE_FACEBOOK_APP_ID=
 
 # API URLs (keep as-is for Docker)
 VITE_API_BASE_URL=/api
-VITE_SOCKET_URL=http://3.25.222.207:3001
+VITE_SOCKET_URL=http://localhost:3001
 
 # Database
 MONGODB_URI=mongodb://mongodb:27017/duotalk
@@ -234,7 +234,7 @@ All `VITE_*` variables must be set in `.env` for Gmail login to work!
 ### What Changed from Original
 1. ✅ Frontend Dockerfile now properly handles build arguments
 2. ✅ CORS origins include `http://frontend:5173`
-3. ✅ Socket URL defaults to `http://3.25.222.207:3001`
+3. ✅ Socket URL defaults to `http://localhost:3001`
 4. ✅ All Firebase variables passed to build process
 5. ✅ `.env.docker` template provided
 

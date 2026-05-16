@@ -71,7 +71,7 @@ Message should appear in real-time!
 
 **Success scenario:**
 ```
-🔌 Initializing Socket.IO connection to: http://3.25.222.207:3001
+🔌 Initializing Socket.IO connection to: http://localhost:3001
 ⏳ Socket.IO connection in progress...
 ✅ Socket.IO connected: 2ub06-j0XCYcuZwIAAAd
 📤 Emitting join for user: shubham12@gmail.com
@@ -140,7 +140,7 @@ Should see:
 Try HTTP API directly:
 ```javascript
 // In console:
-fetch('http://3.25.222.207:3001/api/health')
+fetch('http://localhost:3001/api/health')
   .then(r => r.json())
   .then(console.log)
 ```

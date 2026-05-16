@@ -12,13 +12,13 @@
 
 ```
 Frontend Server: ✅ Running on http://localhost:5173/
-Backend Server: ✅ Running on http://3.25.222.207:3001/
+Backend Server: ✅ Running on http://localhost:3001/
 ```
 
 ### Verification
 ```
 [0]   ➜  Local:   http://localhost:5173/
-[1] Server running on http://3.25.222.207:3001
+[1] Server running on http://localhost:3001
 ```
 
 ---

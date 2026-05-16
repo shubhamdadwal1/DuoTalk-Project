@@ -194,6 +194,12 @@ app.use((req, res, next) => {
   // Referrer-Policy
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   
+  // Cross-Origin-Opener-Policy to allow popups and window.closed calls
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+  
+  // Cross-Origin-Embedder-Policy
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+  
   next();
 });
 
