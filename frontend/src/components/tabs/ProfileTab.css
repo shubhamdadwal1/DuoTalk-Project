@@ -1,0 +1,22 @@
+/* ProfileTab.css */
+
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  background: rgba(30, 30, 60, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.profile-form {
+  background: rgba(30, 30, 60, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  padding: 2rem;
+}

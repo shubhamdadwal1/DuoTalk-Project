@@ -1,0 +1,32 @@
+/* ChatTab.css */
+
+.chat-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1rem;
+  min-height: 600px;
+}
+
+.conversations-list {
+  background: rgba(20, 20, 50, 0.3);
+  border-radius: 15px;
+  border: 1px solid rgba(100, 200, 255, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-area {
+  background: rgba(20, 20, 50, 0.3);
+  border-radius: 15px;
+  border: 1px solid rgba(100, 200, 255, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    grid-template-columns: 1fr;
+  }
+}

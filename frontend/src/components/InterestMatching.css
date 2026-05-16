@@ -1,0 +1,151 @@
+.interest-matching {
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #1a0a3b 0%, #0a0a19 50%, #0f1a3b 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.interest-matching::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(100, 200, 255, 0.1), transparent),
+              radial-gradient(circle at 50% 100%, rgba(167, 110, 255, 0.1), transparent);
+  pointer-events: none;
+}
+
+.interest-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.interest-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.interest-header h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff, #64c8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.interest-header p {
+  font-size: 1.1rem;
+  color: #a0a0d0;
+}
+
+.interests-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.interest-chip {
+  background: linear-gradient(135deg, rgba(20, 20, 50, 0.4), rgba(30, 10, 60, 0.4));
+  border: 2px solid rgba(100, 200, 255, 0.3);
+  color: #d0d0e0;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.interest-chip:hover {
+  border-color: rgba(100, 200, 255, 0.8);
+  background: linear-gradient(135deg, rgba(20, 20, 50, 0.6), rgba(30, 10, 60, 0.6));
+  transform: translateY(-3px);
+}
+
+.interest-chip.active {
+  background: linear-gradient(135deg, #64c8ff, #a76eff);
+  border-color: transparent;
+  color: #0a0a19;
+  font-weight: 600;
+  box-shadow: 0 0 25px rgba(100, 200, 255, 0.5);
+}
+
+.checkmark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  font-size: 0.8rem;
+}
+
+.selected-interests {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(100, 200, 255, 0.05), rgba(167, 110, 255, 0.05));
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.selected-interests p {
+  color: #b0b0e0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.selected-count {
+  background: linear-gradient(135deg, #64c8ff, #a76eff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+}
+
+.find-matches-btn {
+  background: linear-gradient(135deg, #00ff88, #64c8ff);
+  border: none;
+  color: #0a0a19;
+  padding: 0.9rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(100, 200, 255, 0.3);
+}
+
+.find-matches-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 40px rgba(100, 200, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .interest-matching {
+    padding: 3rem 1.5rem;
+  }
+
+  .interest-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .interests-grid {
+    gap: 0.8rem;
+  }
+
+  .interest-chip {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}

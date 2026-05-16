@@ -1,0 +1,363 @@
+.duo-shell {
+  min-height: 100vh;
+  width: 100%;
+  text-align: left;
+  background:
+    radial-gradient(circle at 11% 8%, rgba(56, 189, 248, 0.18), transparent 26%),
+    radial-gradient(circle at 48% 0%, rgba(129, 140, 248, 0.24), transparent 30%),
+    radial-gradient(circle at 88% 16%, rgba(217, 70, 239, 0.18), transparent 28%),
+    radial-gradient(circle at 72% 88%, rgba(45, 212, 191, 0.1), transparent 26%),
+    linear-gradient(135deg, #050b18 0%, #0b1230 38%, #1d1247 70%, #070b19 100%);
+  font-family: Inter, Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+
+.duo-ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 21%, transparent 72%, rgba(99, 102, 241, 0.09)),
+    radial-gradient(circle at 52% 45%, rgba(255, 255, 255, 0.04), transparent 38%);
+  opacity: 0.9;
+}
+
+.duo-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent 70%);
+}
+
+.glass-panel {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.76), rgba(28, 24, 72, 0.48));
+  box-shadow: 0 24px 80px rgba(2, 6, 23, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+}
+
+.glass-panel::selection,
+.duo-shell ::selection {
+  background: rgba(99, 102, 241, 0.45);
+}
+
+.metric-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-panel::before {
+  content: "";
+  position: absolute;
+  inset: -40% auto auto -20%;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  opacity: 0.32;
+  filter: blur(16px);
+}
+
+.metric-violet::before {
+  background: #8b5cf6;
+}
+
+.metric-cyan::before {
+  background: #22d3ee;
+}
+
+.metric-rose::before {
+  background: #fb7185;
+}
+
+.duo-nav-item {
+  display: flex;
+  min-height: 46px;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0 12px;
+  color: rgb(203 213 225);
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.duo-nav-item:hover,
+.duo-nav-item.is-active {
+  transform: translateX(3px) scale(1.02);
+  border-color: rgba(129, 140, 248, 0.36);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.26), rgba(34, 211, 238, 0.1));
+  color: #fff;
+  box-shadow: 0 14px 40px rgba(99, 102, 241, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.duo-icon-button {
+  display: inline-grid;
+  height: 48px;
+  width: 48px;
+  place-items: center;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgb(226 232 240);
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.duo-icon-button:hover {
+  transform: scale(1.04) translateY(-1px);
+  border-color: rgba(129, 140, 248, 0.46);
+  background: rgba(99, 102, 241, 0.16);
+  box-shadow: 0 0 28px rgba(99, 102, 241, 0.22);
+}
+
+.duo-gradient-button,
+.duo-danger-button {
+  position: relative;
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 0;
+  padding: 0 16px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+.duo-gradient-button {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6 52%, #22d3ee);
+  box-shadow: 0 14px 34px rgba(99, 102, 241, 0.34);
+}
+
+.duo-danger-button {
+  background: linear-gradient(135deg, #f43f5e, #fb7185);
+  box-shadow: 0 14px 34px rgba(244, 63, 94, 0.24);
+}
+
+.duo-gradient-button:hover,
+.duo-danger-button:hover {
+  transform: translateY(-1px) scale(1.02);
+  filter: saturate(1.08);
+}
+
+.duo-gradient-button::after,
+.duo-danger-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.24), transparent);
+  transition: transform 0.55s ease;
+}
+
+.duo-gradient-button:hover::after,
+.duo-danger-button:hover::after {
+  transform: translateX(100%);
+}
+
+.right-card {
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+  padding: 16px;
+}
+
+.section-kicker {
+  color: rgb(129 140 248);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.conversation-chip {
+  position: relative;
+  display: grid;
+  min-height: 68px;
+  place-items: center;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(15, 23, 42, 0.42);
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.conversation-chip:hover,
+.conversation-chip.is-active {
+  transform: translateY(-1px) scale(1.02);
+  border-color: rgba(34, 211, 238, 0.36);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(34, 211, 238, 0.1));
+  box-shadow: 0 18px 32px rgba(2, 6, 23, 0.24);
+}
+
+.online-dot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid #050b18;
+  background: #34d399;
+  box-shadow: 0 0 14px rgba(52, 211, 153, 0.9);
+}
+
+.unread-badge {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #22d3ee);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.chat-bubble {
+  max-width: 82%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgb(226 232 240);
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.chat-bubble.is-mine {
+  border-color: rgba(129, 140, 248, 0.4);
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+}
+
+.chat-bubble span {
+  display: block;
+  margin-top: 4px;
+  color: rgb(100 116 139);
+  font-size: 11px;
+}
+
+.chat-bubble.is-mine span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.chat-tool {
+  display: grid;
+  place-items: center;
+  color: rgb(148 163 184);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.chat-tool:hover {
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.send-button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1, #22d3ee);
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.send-button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.25);
+}
+
+.profile-cover {
+  height: 104px;
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.74), rgba(34, 211, 238, 0.36)),
+    url("https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=900&q=80");
+  background-position: center;
+  background-size: cover;
+}
+
+.profile-avatar {
+  width: 84px;
+  height: 84px;
+  border: 4px solid #050b18;
+  border-radius: 999px;
+  box-shadow: 0 0 32px rgba(99, 102, 241, 0.76), 0 16px 38px rgba(2, 6, 23, 0.4);
+}
+
+.quiet-button {
+  min-height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgb(226 232 240);
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.quiet-button:hover {
+  transform: translateY(-1px) scale(1.02);
+  border-color: rgba(129, 140, 248, 0.36);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.badge-tile,
+.activity-tile {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.18);
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.badge-tile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+}
+
+.badge-tile span {
+  color: rgb(226 232 240);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.activity-tile {
+  padding: 12px;
+}
+
+.badge-tile:hover,
+.activity-tile:hover {
+  transform: scale(1.02);
+  border-color: rgba(129, 140, 248, 0.3);
+  background: rgba(255, 255, 255, 0.065);
+}
+
+@media (max-width: 1279px) {
+  .duo-shell {
+    padding-bottom: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .glass-panel {
+    border-radius: 16px;
+  }
+}

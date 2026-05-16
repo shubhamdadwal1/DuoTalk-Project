@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DuoTalk Messaging Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+            boxShadow: {
+              soft: "0 18px 60px rgba(15, 23, 42, 0.10)",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="min-h-screen bg-[#050712] font-sans text-slate-100 antialiased">
+    <div id="app"></div>
+    <style>
+      .scene-3d {
+        perspective: 1200px;
+      }
+
+      .float-card {
+        transform-style: preserve-3d;
+        animation: floatCard 7s ease-in-out infinite;
+      }
+
+      .orbital-cube {
+        position: absolute;
+        width: 92px;
+        height: 92px;
+        transform-style: preserve-3d;
+        animation: spinCube 12s linear infinite;
+      }
+
+      .orbital-cube span {
+        position: absolute;
+        inset: 0;
+        border: 1px solid rgba(125, 211, 252, 0.35);
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(168, 85, 247, 0.14));
+        box-shadow: 0 0 32px rgba(59, 130, 246, 0.16);
+        backdrop-filter: blur(10px);
+      }
+
+      .orbital-cube span:nth-child(1) { transform: rotateY(0deg) translateZ(46px); }
+      .orbital-cube span:nth-child(2) { transform: rotateY(90deg) translateZ(46px); }
+      .orbital-cube span:nth-child(3) { transform: rotateY(180deg) translateZ(46px); }
+      .orbital-cube span:nth-child(4) { transform: rotateY(-90deg) translateZ(46px); }
+      .orbital-cube span:nth-child(5) { transform: rotateX(90deg) translateZ(46px); }
+      .orbital-cube span:nth-child(6) { transform: rotateX(-90deg) translateZ(46px); }
+
+      .tilt-panel {
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      }
+
+      .tilt-panel:hover {
+        transform: translateY(-2px) rotateX(1deg) rotateY(-1deg);
+      }
+
+      @keyframes floatCard {
+        0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+        50% { transform: translateY(-12px) rotateX(2deg) rotateY(-2deg); }
+      }
+
+      @keyframes spinCube {
+        from { transform: rotateX(-18deg) rotateY(0deg); }
+        to { transform: rotateX(-18deg) rotateY(360deg); }
+      }
+    </style>
+
+    <script>
+      const chats = [
+        {
+          id: 1,
+          name: "Maya Chen",
+          email: "maya.chen@acme.io",
+          avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80",
+          lastMessage: "Can you send over the onboarding flow?",
+          time: "10:42",
+          duration: "24m 18s",
+          group: "Customer Success",
+          tags: ["sales", "support"],
+          suggestions: ["Share the onboarding guide", "Schedule a follow-up", "Ask about team size"],
+          messages: [
+            { from: "them", text: "Hey, we are reviewing DuoTalk for our support team.", time: "10:35" },
+            { from: "me", text: "Great. I can help you map the setup and workflows.", time: "10:37" },
+            { from: "them", text: "Can you send over the onboarding flow?", time: "10:42" },
+          ],
+        },
+        {
+          id: 2,
+          name: "Jordan Ellis",
+          email: "jordan@northstar.dev",
+          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=160&q=80",
+          lastMessage: "The shared inbox looks perfect.",
+          time: "09:28",
+          duration: "11m 04s",
+          group: "Product",
+          tags: ["support", "beta"],
+          suggestions: ["Invite to beta group", "Send release notes", "Ask for feedback"],
+          messages: [
+            { from: "them", text: "The shared inbox looks perfect.", time: "09:26" },
+            { from: "me", text: "Love to hear that. Want me to enable beta access?", time: "09:28" },
+          ],
+        },
+        {
+          id: 3,
+          name: "Ava Patel",
+          email: "ava@brightdesk.com",
+          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80",
+          lastMessage: "Could we add two teammates?",
+          time: "Yesterday",
+          duration: "36m 51s",
+          group: "Sales",
+          tags: ["sales", "upgrade"],
+          suggestions: ["Send invite link", "Mention pro plan", "Offer migration help"],
+          messages: [
+            { from: "them", text: "Could we add two teammates?", time: "16:11" },
+            { from: "me", text: "Absolutely. I can send an invite link now.", time: "16:12" },
+          ],
+        },
+        {
+          id: 4,
+          name: "Noah Reed",
+          email: "noah@orbitlabs.co",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80",
+          lastMessage: "Thanks, that fixed it.",
+          time: "Mon",
+          duration: "08m 30s",
+          group: "Technical Support",
+          tags: ["support", "resolved"],
+          suggestions: ["Close ticket", "Send CSAT survey", "Document fix"],
+          messages: [
+            { from: "them", text: "The notification routing was not working.", time: "14:02" },
+            { from: "me", text: "I refreshed the workspace rule. Try again now.", time: "14:06" },
+            { from: "them", text: "Thanks, that fixed it.", time: "14:08" },
+          ],
+        },
+      ];
+
+      let selectedChatId = chats[0].id;
+
+      const icons = {
+        home: '<path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5Z"/>',
+        chat: '<path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-6.2A8 8 0 1 1 21 12Z"/>',
+        users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+        analytics: '<path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-5"/><path d="M12 16V8"/><path d="M16 16v-3"/>',
+        settings: '<path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"/><path d="M19.4 15a1.8 1.8 0 0 0 .36 1.98l.04.04a2 2 0 1 1-2.83 2.83l-.04-.04A1.8 1.8 0 0 0 15 19.4a1.8 1.8 0 0 0-1 .6 1.8 1.8 0 0 0-.4 1.2V21a2 2 0 1 1-4 0v-.06A1.8 1.8 0 0 0 8.6 19.4a1.8 1.8 0 0 0-1.98.36l-.04.04a2 2 0 1 1-2.83-2.83l.04-.04A1.8 1.8 0 0 0 4.6 15a1.8 1.8 0 0 0-.6-1 1.8 1.8 0 0 0-1.2-.4H2.7a2 2 0 1 1 0-4h.06A1.8 1.8 0 0 0 4.6 8.6a1.8 1.8 0 0 0-.36-1.98l-.04-.04a2 2 0 1 1 2.83-2.83l.04.04A1.8 1.8 0 0 0 9 4.6a1.8 1.8 0 0 0 1-.6 1.8 1.8 0 0 0 .4-1.2V2.7a2 2 0 1 1 4 0v.06A1.8 1.8 0 0 0 15.4 4.6a1.8 1.8 0 0 0 1.98-.36l.04-.04a2 2 0 1 1 2.83 2.83l-.04.04A1.8 1.8 0 0 0 19.4 9c.28.36.65.57 1.1.6h.8a2 2 0 1 1 0 4h-.06A1.8 1.8 0 0 0 19.4 15Z"/>',
+        smile: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/>',
+        attach: '<path d="m21.44 11.05-8.49 8.49a6 6 0 0 1-8.49-8.49l8.49-8.49a4 4 0 0 1 5.66 5.66l-8.49 8.49a2 2 0 1 1-2.83-2.83l7.78-7.78"/>',
+        send: '<path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/>',
+        more: '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+        phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.1 5.18 2 2 0 0 1 5.11 3h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L9 10.7a16 16 0 0 0 6.3 6.3l1.27-1.27a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"/>',
+      };
+
+      function icon(name, classes = "h-5 w-5") {
+        return `<svg class="${classes}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg>`;
+      }
+
+      function renderLogin() {
+        document.getElementById("app").innerHTML = `
+          <main class="scene-3d relative flex min-h-screen items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_18%_12%,rgba(59,130,246,.26),transparent_28%),radial-gradient(circle_at_82%_20%,rgba(168,85,247,.22),transparent_30%),linear-gradient(135deg,#050712,#0f172a_46%,#1e1245)] px-4">
+            <div class="orbital-cube left-[12%] top-[18%] opacity-80">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="orbital-cube bottom-[18%] right-[14%] scale-75 opacity-60">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <section class="float-card w-full max-w-md rounded-2xl border border-white/10 bg-slate-950/70 p-8 shadow-[0_28px_90px_rgba(0,0,0,.45)] backdrop-blur-2xl">
+              <div class="mb-8 text-center">
+                <div class="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 text-white shadow-lg shadow-blue-500/25">${icon("chat")}</div>
+                <h1 class="text-2xl font-bold tracking-tight text-white">Welcome back</h1>
+                <p class="mt-2 text-sm text-slate-400">Login to open your messaging dashboard.</p>
+              </div>
+              <form id="loginForm" class="space-y-4">
+                <label class="block">
+                  <span class="text-sm font-semibold text-slate-300">Email</span>
+                  <input id="email" type="email" required value="demo@duotalk.app" class="mt-2 h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/10" />
+                </label>
+                <label class="block">
+                  <span class="text-sm font-semibold text-slate-300">Password</span>
+                  <input id="password" type="password" required value="password" class="mt-2 h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/10" />
+                </label>
+                <button class="mt-2 h-12 w-full rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 font-semibold text-white shadow-lg shadow-blue-950/40 transition hover:-translate-y-0.5 hover:shadow-blue-500/20" type="submit">Login</button>
+              </form>
+            </section>
+          </main>
+        `;
+
+        document.getElementById("loginForm").addEventListener("submit", (event) => {
+          event.preventDefault();
+          sessionStorage.setItem("duotalk_logged_in", "true");
+          history.pushState({}, "", "/dashboard");
+          renderDashboard();
+        });
+      }
+
+      function renderDashboard() {
+        const chat = chats.find((item) => item.id === selectedChatId) || chats[0];
+        document.getElementById("app").innerHTML = `
+          <main class="scene-3d relative grid h-screen grid-cols-[72px_320px_minmax(0,1fr)_320px] overflow-hidden bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,.22),transparent_28%),radial-gradient(circle_at_80%_12%,rgba(147,51,234,.18),transparent_30%),linear-gradient(135deg,#050712,#0b1020_48%,#130f2d)]">
+            <div class="orbital-cube pointer-events-none right-[28%] top-8 scale-50 opacity-30">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <aside class="z-10 flex flex-col items-center gap-3 border-r border-white/10 bg-slate-950/80 px-3 py-5 text-slate-500 backdrop-blur-xl">
+              <div class="mb-6 grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 text-white shadow-lg shadow-blue-500/25">${icon("chat")}</div>
+              ${["home", "chat", "users", "analytics", "settings"].map((item) => `
+                <button class="grid h-11 w-11 place-items-center rounded-xl transition ${item === "chat" ? "bg-blue-500 text-white shadow-lg shadow-blue-500/30" : "hover:bg-white/10 hover:text-white"}" title="${item}">
+                  ${icon(item)}
+                </button>
+              `).join("")}
+              <button id="logoutBtn" class="mt-auto grid h-11 w-11 place-items-center rounded-xl text-xs font-bold text-slate-300 transition hover:bg-white/10 hover:text-white" title="Logout">OUT</button>
+            </aside>
+
+            <aside class="z-10 border-r border-white/10 bg-slate-950/55 backdrop-blur-xl">
+              <div class="border-b border-white/10 p-5">
+                <h2 class="text-xl font-bold text-white">Chats</h2>
+                <p class="mt-1 text-sm text-slate-400">My Chats</p>
+              </div>
+              <div class="h-[calc(100vh-89px)] space-y-2 overflow-y-auto p-3">
+                ${chats.map((item) => `
+                  <button data-chat-id="${item.id}" class="chat-item tilt-panel flex w-full gap-3 rounded-xl p-3 text-left transition ${item.id === selectedChatId ? "border border-blue-400/30 bg-blue-500/15 shadow-lg shadow-blue-950/30" : "border border-transparent hover:border-white/10 hover:bg-white/5"}">
+                    <img src="${item.avatar}" alt="${item.name}" class="h-11 w-11 rounded-full object-cover" />
+                    <span class="min-w-0 flex-1">
+                      <span class="flex items-center justify-between gap-3">
+                        <strong class="truncate text-sm text-white">${item.name}</strong>
+                        <span class="shrink-0 text-xs text-slate-500">${item.time}</span>
+                      </span>
+                      <span class="mt-1 block truncate text-sm text-slate-400">${item.lastMessage}</span>
+                    </span>
+                  </button>
+                `).join("")}
+              </div>
+            </aside>
+
+            <section class="z-10 flex min-w-0 flex-col bg-slate-900/30">
+              <header class="flex h-[89px] items-center justify-between border-b border-white/10 bg-slate-950/45 px-6 backdrop-blur-xl">
+                <div class="flex items-center gap-3">
+                  <img src="${chat.avatar}" alt="${chat.name}" class="h-11 w-11 rounded-full object-cover" />
+                  <div>
+                    <h2 class="font-bold text-white">${chat.name}</h2>
+                    <p class="text-sm text-emerald-600">Online now</p>
+                  </div>
+                </div>
+                <div class="flex gap-2 text-slate-400">
+                  <button class="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 transition hover:bg-white/10 hover:text-white">${icon("phone")}</button>
+                  <button class="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 transition hover:bg-white/10 hover:text-white">${icon("more")}</button>
+                </div>
+              </header>
+
+              <div id="messages" class="flex-1 space-y-4 overflow-y-auto p-6">
+                ${chat.messages.map((message) => messageBubble(message)).join("")}
+              </div>
+
+              <footer class="border-t border-white/10 bg-slate-950/45 p-4 backdrop-blur-xl">
+                <form id="messageForm" class="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                  <input id="messageInput" class="h-10 min-w-0 flex-1 bg-transparent px-2 text-sm text-white outline-none placeholder:text-slate-500" placeholder="Write a message..." autocomplete="off" />
+                  <button type="button" class="text-slate-400 transition hover:text-white">${icon("smile")}</button>
+                  <button type="button" class="text-slate-400 transition hover:text-white">${icon("attach")}</button>
+                  <button class="grid h-10 w-10 place-items-center rounded-xl bg-blue-600 text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-500" type="submit">${icon("send")}</button>
+                </form>
+              </footer>
+            </section>
+
+            <aside class="z-10 border-l border-white/10 bg-slate-950/55 p-5 backdrop-blur-xl">
+              <div class="tilt-panel rounded-xl border border-white/10 bg-white/5 p-5 text-center shadow-lg shadow-black/20">
+                <img src="${chat.avatar}" alt="${chat.name}" class="mx-auto h-20 w-20 rounded-full object-cover" />
+                <h3 class="mt-3 font-bold text-white">${chat.name}</h3>
+                <p class="text-sm text-slate-400">${chat.email}</p>
+              </div>
+
+              <div class="mt-4 grid grid-cols-2 gap-3">
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <p class="text-xs font-semibold uppercase text-slate-500">Duration</p>
+                  <p class="mt-2 font-bold text-white">${chat.duration}</p>
+                </div>
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <p class="text-xs font-semibold uppercase text-slate-500">Group</p>
+                  <p class="mt-2 truncate font-bold text-white">${chat.group}</p>
+                </div>
+              </div>
+
+              <section class="mt-5">
+                <h4 class="text-sm font-bold text-white">Reply suggestions</h4>
+                <div class="mt-3 space-y-2">
+                  ${chat.suggestions.map((suggestion) => `<button class="suggestion w-full rounded-xl border border-white/10 bg-white/5 p-3 text-left text-sm text-slate-300 transition hover:border-blue-400/40 hover:bg-blue-500/10 hover:text-white">${suggestion}</button>`).join("")}
+                </div>
+              </section>
+
+              <section class="mt-5">
+                <h4 class="text-sm font-bold text-white">Tags</h4>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  ${chat.tags.map((tag) => `<span class="rounded-full border border-blue-400/20 bg-blue-500/10 px-3 py-1.5 text-xs font-semibold text-blue-200">${tag}</span>`).join("")}
+                </div>
+              </section>
+            </aside>
+          </main>
+        `;
+
+        bindDashboardEvents();
+        scrollMessagesToBottom();
+      }
+
+      function messageBubble(message) {
+        const mine = message.from === "me";
+        return `
+          <div class="flex ${mine ? "justify-end" : "justify-start"}">
+            <div class="tilt-panel max-w-[62%] rounded-xl px-4 py-3 shadow-lg ${mine ? "bg-blue-600 text-white shadow-blue-950/25" : "border border-white/10 bg-white/8 text-slate-200 shadow-black/20 backdrop-blur"}">
+              <p class="text-sm leading-6">${message.text}</p>
+              <p class="mt-1 text-right text-[11px] ${mine ? "text-blue-100" : "text-slate-500"}">${message.time}</p>
+            </div>
+          </div>
+        `;
+      }
+
+      function bindDashboardEvents() {
+        document.querySelectorAll(".chat-item").forEach((button) => {
+          button.addEventListener("click", () => {
+            selectedChatId = Number(button.dataset.chatId);
+            renderDashboard();
+          });
+        });
+
+        document.querySelectorAll(".suggestion").forEach((button) => {
+          button.addEventListener("click", () => {
+            document.getElementById("messageInput").value = button.textContent;
+            document.getElementById("messageInput").focus();
+          });
+        });
+
+        document.getElementById("messageForm").addEventListener("submit", (event) => {
+          event.preventDefault();
+          const input = document.getElementById("messageInput");
+          const text = input.value.trim();
+          if (!text) return;
+
+          const chat = chats.find((item) => item.id === selectedChatId);
+          const now = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+          chat.messages.push({ from: "me", text, time: now });
+          chat.lastMessage = text;
+          chat.time = now;
+          input.value = "";
+          renderDashboard();
+        });
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+          sessionStorage.removeItem("duotalk_logged_in");
+          history.pushState({}, "", "/login");
+          renderLogin();
+        });
+      }
+
+      function scrollMessagesToBottom() {
+        const messages = document.getElementById("messages");
+        if (messages) messages.scrollTop = messages.scrollHeight;
+      }
+
+      window.addEventListener("popstate", () => {
+        if (sessionStorage.getItem("duotalk_logged_in") === "true" && location.pathname === "/dashboard") {
+          renderDashboard();
+        } else {
+          renderLogin();
+        }
+      });
+
+      if (sessionStorage.getItem("duotalk_logged_in") === "true" && location.pathname === "/dashboard") {
+        renderDashboard();
+      } else {
+        history.replaceState({}, "", "/login");
+        renderLogin();
+      }
+    </script>
+  </body>
+</html>

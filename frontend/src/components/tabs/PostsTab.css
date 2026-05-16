@@ -1,0 +1,28 @@
+/* PostsTab.css */
+
+.posts-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.post-create {
+  background: rgba(30, 30, 60, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.post-item {
+  background: rgba(30, 30, 60, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.post-item:hover {
+  background: rgba(40, 40, 70, 0.6);
+  border-color: rgba(100, 200, 255, 0.4);
+}

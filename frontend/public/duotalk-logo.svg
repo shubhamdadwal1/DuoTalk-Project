@@ -1,0 +1,20 @@
+<svg width="360" height="240" viewBox="0 0 360 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="duoLeft" x1="53" y1="44" x2="168" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#20C7F6"/>
+      <stop offset="1" stop-color="#16AEE4"/>
+    </linearGradient>
+    <linearGradient id="duoRight" x1="164" y1="42" x2="287" y2="184" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#89A9CB"/>
+      <stop offset="1" stop-color="#6F8FB2"/>
+    </linearGradient>
+  </defs>
+  <path
+    d="M118 30C76.5786 30 43 63.5786 43 105C43 130.008 55.2352 152.157 74.0294 165.785L64.5 193L97.3588 181.388C103.754 183.115 110.479 184 117.5 184C158.922 184 192.5 150.421 192.5 109C192.5 67.5786 159.421 30 118 30ZM118 152C92.0426 152 71 130.957 71 105C71 79.0426 92.0426 58 118 58C143.957 58 165 79.0426 165 105C165 130.957 143.957 152 118 152Z"
+    fill="url(#duoLeft)"
+  />
+  <path
+    d="M229 26C188.131 26 155 59.131 155 100C155 140.869 188.131 174 229 174C236.398 174 243.543 173.01 250.326 171.162L286.5 183.5L276.406 155.351C293.218 141.836 304 121.11 304 98C304 58.2355 271.317 26 229 26ZM229 145C203.043 145 182 123.957 182 98C182 72.0426 203.043 51 229 51C254.957 51 276 72.0426 276 98C276 123.957 254.957 145 229 145Z"
+    fill="url(#duoRight)"
+  />
+</svg>
