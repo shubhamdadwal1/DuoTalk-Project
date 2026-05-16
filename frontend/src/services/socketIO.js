@@ -21,7 +21,7 @@ function resolveSocketUrl() {
 
   // In local Vite development, the backend runs on 3001 rather than the frontend origin.
   if (import.meta.env.DEV) {
-    return 'http://3.25.153.25:3001';
+    return 'http://3.25.222.207:3001';
   }
 
   // In production, frontend and backend share the same domain via reverse proxy.

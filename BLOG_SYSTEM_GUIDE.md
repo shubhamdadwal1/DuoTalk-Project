@@ -362,7 +362,7 @@ All blog components use:
 ## Troubleshooting
 
 ### Blogs not appearing
-1. Check API is running: `curl http://3.25.153.25:3001/api/blogs`
+1. Check API is running: `curl http://3.25.222.207:3001/api/blogs`
 2. Verify MongoDB connection
 3. Check browser console for errors
 4. Verify CORS settings
@@ -391,16 +391,16 @@ All blog components use:
 ### API Testing
 ```bash
 # Get all blogs
-curl http://3.25.153.25:3001/api/blogs
+curl http://3.25.222.207:3001/api/blogs
 
 # Create blog (requires token)
-curl -X POST http://3.25.153.25:3001/api/blogs \
+curl -X POST http://3.25.222.207:3001/api/blogs \
   -H "Authorization: Bearer {token}" \
   -H "Content-Type: application/json" \
   -d '{"title": "Test", "content": "Content", "tags": ["test"]}'
 
 # Like blog
-curl -X POST http://3.25.153.25:3001/api/blogs/{id}/like \
+curl -X POST http://3.25.222.207:3001/api/blogs/{id}/like \
   -H "Authorization: Bearer {token}"
 ```
 

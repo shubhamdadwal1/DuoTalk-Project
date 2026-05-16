@@ -158,7 +158,7 @@ video: {
 
 ### Server Status:
 ```
-✅ Server running on http://3.25.153.25:3001
+✅ Server running on http://3.25.222.207:3001
 ✅ Connected to MongoDB Atlas
 ✅ Real-time messaging system initialized
 ✅ Client connections: Managing multiple users

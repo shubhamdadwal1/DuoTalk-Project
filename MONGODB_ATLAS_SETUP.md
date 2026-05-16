@@ -27,7 +27,7 @@ Your MongoDB Atlas account has the **duotalk** database with these collections:
 
 **Example format:**
 ```
-mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk?retryWrites=true&w=majority
+mongodb+srv://shubham12:test12@cluster.nd6wymu.mongodb.net/duotalk?retryWrites=true&w=majority
 ```
 
 ---
@@ -46,12 +46,12 @@ cp backend/.env.example backend/.env
 ### 2.2 Set MongoDB Atlas Connection
 Find this line in your `.env`:
 ```
-MONGODB_URI=mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk
+MONGODB_URI=mongodb+srv://shubham12:test12@cluster.nd6wymu.mongodb.net/duotalk
 ```
 
 **Replace `<db_password>` with your actual password:**
 ```
-MONGODB_URI=mongodb+srv://shubham12:shubham12@cluster.nd6wymu.mongodb.net/duotalk
+MONGODB_URI=mongodb+srv://shubham12:test12@cluster.nd6wymu.mongodb.net/duotalk
 ```
 
 ### 2.3 Ensure JWT_SECRET is Set
@@ -119,10 +119,10 @@ docker compose logs -f backend
 ### Test API Health
 ```bash
 # Should return 200 OK
-curl http://3.25.153.25:3001/api/health
+curl http://3.25.222.207:3001/api/health
 
 # Check database connection
-curl http://3.25.153.25:3001/api/debug/db-status
+curl http://3.25.222.207:3001/api/debug/db-status
 ```
 
 ### Test Frontend

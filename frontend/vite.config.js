@@ -13,11 +13,11 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: 'http://3.25.153.25:3001',
+        target: 'http://3.25.222.207:3001',
         changeOrigin: true,
       },
       '/socket.io': {
-        target: 'http://3.25.153.25:3001',
+        target: 'http://3.25.222.207:3001',
         changeOrigin: true,
         ws: true,
       },

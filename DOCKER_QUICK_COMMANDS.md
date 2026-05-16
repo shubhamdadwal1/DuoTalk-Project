@@ -116,7 +116,7 @@ docker system prune -a --volumes
 
 ### Test API endpoint
 ```bash
-curl http://3.25.153.25:3001/api/health
+curl http://3.25.222.207:3001/api/health
 ```
 
 ### Test backend from frontend container

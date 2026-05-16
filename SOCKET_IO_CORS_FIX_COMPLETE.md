@@ -8,7 +8,7 @@
 
 ### 2. **Socket.IO Connection Failures**
 **Error**: `Error joining socket room: websocket error`
-**Root Cause**: VITE_SOCKET_URL was set to `http://3.25.153.25:3001` in docker-compose.yml build args
+**Root Cause**: VITE_SOCKET_URL was set to `http://3.25.222.207:3001` in docker-compose.yml build args
 
 ### 3. **CORS Policy Errors**
 **Error**: `Cross-Origin-Opener-Policy policy would block the window.closed call`
@@ -27,7 +27,7 @@
 **Before**:
 ```yaml
 VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
-VITE_SOCKET_URL: ${VITE_SOCKET_URL:-http://3.25.153.25:3001}
+VITE_SOCKET_URL: ${VITE_SOCKET_URL:-http://3.25.222.207:3001}
 ```
 
 **After**:
@@ -110,7 +110,7 @@ MongoDB (mongodb://mongodb:27017)
 ```
 
 ### Development vs Docker:
-- **Development** (Vite): Backend on `http://3.25.153.25:3001`, frontend connects directly
+- **Development** (Vite): Backend on `http://3.25.222.207:3001`, frontend connects directly
 - **Docker**: Frontend connects through nginx proxy using relative paths `/api/` and `/socket.io/`
 - **Production**: Same proxy architecture as Docker
 
@@ -145,13 +145,13 @@ MongoDB (mongodb://mongodb:27017)
 
 ### Backend Health
 ```bash
-docker exec duotalk-backend-1 wget -q -O- http://3.25.153.25:3001/api/health
+docker exec duotalk-backend-1 wget -q -O- http://3.25.222.207:3001/api/health
 # Response: {"status":"Server is running!","database":"Connected"}
 ```
 
 ### API Access
 ```bash
-docker exec duotalk-backend-1 wget -q -O- http://3.25.153.25:3001/api/blogs
+docker exec duotalk-backend-1 wget -q -O- http://3.25.222.207:3001/api/blogs
 # Response: [] (empty array, ready for blogs)
 ```
 
@@ -209,7 +209,7 @@ docker compose --profile local up -d --build
 ## 📍 Access Points
 
 - **App**: http://localhost:5173
-- **API**: http://3.25.153.25:3001/api
+- **API**: http://3.25.222.207:3001/api
 - **Socket.IO**: ws://localhost:5173/socket.io (proxied)
 - **Database Admin**: http://localhost:8081 (Mongo Express)
 - **MongoDB**: localhost:27017 (direct)
