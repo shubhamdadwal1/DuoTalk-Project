@@ -49,12 +49,12 @@ cp .env.docker .env
 #### 2. Update with Your Password
 Edit `.env` and replace:
 ```
-MONGODB_URI=mongodb+srv://dadwalshubham096:<db_password>@cluster.nd6wymu.mongodb.net/duotalk
+MONGODB_URI=mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk
 ```
 
 With your actual password:
 ```
-MONGODB_URI=mongodb+srv://dadwalshubham096:YOUR_PASSWORD_HERE@cluster.nd6wymu.mongodb.net/duotalk
+MONGODB_URI=mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk
 ```
 
 #### 3. Start Docker (No Local MongoDB)
@@ -97,7 +97,7 @@ docker compose --profile local up -d --build
 cp .env.docker .env
 
 # 2. Edit .env and add your password
-# MONGODB_URI=mongodb+srv://dadwalshubham096:YOUR_PASSWORD@cluster.nd6wymu.mongodb.net/duotalk
+# MONGODB_URI=mongodb+srv://dadwalshubham096:dadwalshubham096@cluster.nd6wymu.mongodb.net/duotalk
 
 # 3. Start services
 docker compose up -d --build
@@ -167,7 +167,7 @@ docker compose logs backend | grep -i "connected\|error\|mongodb"
 
 ### 2. Test API Health
 ```bash
-curl http://localhost:3001/api/health
+curl http://3.25.153.25:3001/api/health
 ```
 
 ### 3. Check Database
@@ -220,7 +220,7 @@ CLOUDINARY_API_SECRET=your-secret
 ```bash
 # API
 VITE_API_BASE_URL=/api
-VITE_SOCKET_URL=http://localhost:3001
+VITE_SOCKET_URL=http://3.25.153.25:3001
 
 # Firebase
 VITE_FIREBASE_API_KEY=your-key

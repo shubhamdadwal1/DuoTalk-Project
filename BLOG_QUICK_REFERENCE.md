@@ -95,13 +95,13 @@ export function MyComponent() {
 
 ### Get All Blogs
 ```
-GET http://localhost:3001/api/blogs
+GET http://3.25.153.25:3001/api/blogs
 Response: [{ _id, title, content, tags, author, likes, createdAt, ... }]
 ```
 
 ### Create Blog
 ```
-POST http://localhost:3001/api/blogs
+POST http://3.25.153.25:3001/api/blogs
 Body: {
   title: string,
   content: string,
@@ -113,7 +113,7 @@ Response: { message, blogId, blog: {...} }
 
 ### Like Blog
 ```
-POST http://localhost:3001/api/blogs/:blogId/like
+POST http://3.25.153.25:3001/api/blogs/:blogId/like
 Body: { userFirebaseUID: string }
 Response: { message, liked: boolean }
 ```
@@ -162,7 +162,7 @@ const tagged = blogs.filter(blog =>
 
 ### Get User's Blogs (Backend)
 ```
-GET http://localhost:3001/api/blogs/user/user-firebase-uid
+GET http://3.25.153.25:3001/api/blogs/user/user-firebase-uid
 ```
 
 ### Format Relative Time
@@ -226,7 +226,7 @@ const formatDate = (date) => {
 
 1. **Authentication**: Uses Firebase authentication
 2. **User UID**: Pass `user.uid` to components
-3. **API URL**: `http://localhost:3001`
+3. **API URL**: `http://3.25.153.25:3001`
 4. **Database**: MongoDB with indexes on createdAt and authorFirebaseUID
 5. **Timestamps**: ISO format, server-generated
 6. **Likes**: Stored as array of user UIDs
@@ -299,15 +299,15 @@ SOCKET_IO_CORS_ORIGIN=http://localhost:5173
 
 ```bash
 # Get all blogs
-curl http://localhost:3001/api/blogs
+curl http://3.25.153.25:3001/api/blogs
 
 # Create blog (needs authorFirebaseUID in body)
-curl -X POST http://localhost:3001/api/blogs \
+curl -X POST http://3.25.153.25:3001/api/blogs \
   -H "Content-Type: application/json" \
   -d '{"title":"Test","content":"Content","tags":["test"],"authorFirebaseUID":"uid"}'
 
 # Like blog
-curl -X POST http://localhost:3001/api/blogs/id/like \
+curl -X POST http://3.25.153.25:3001/api/blogs/id/like \
   -H "Content-Type: application/json" \
   -d '{"userFirebaseUID":"uid"}'
 ```
@@ -320,7 +320,7 @@ curl -X POST http://localhost:3001/api/blogs/id/like \
    ```bash
    cd backend
    npm start
-   # Server runs on http://localhost:3001
+   # Server runs on http://3.25.153.25:3001
    ```
 
 2. **Start Frontend**:

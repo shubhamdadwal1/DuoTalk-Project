@@ -250,7 +250,7 @@ User happy: "Message is there!" 😊
 
 ## 🚀 Servers Status
 
-✅ **Backend**: http://localhost:3001 (Running, NO timeout cleanup)
+✅ **Backend**: http://3.25.153.25:3001 (Running, NO timeout cleanup)
 ✅ **Frontend**: http://localhost:5173 (Running, fixed message persistence)
 
 **Key Changes**:
